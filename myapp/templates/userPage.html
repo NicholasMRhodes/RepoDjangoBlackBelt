@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>User Page</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <style>
+      a.nav-link{
+          color: white;
+      }
+  </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+            <a class="navbar-brand" href="#"><strong>Q<sup>2</sup></strong></a>
+            <ul class="navbar-nav justify-content-end">
+                <li class="nav-item">
+                    <a class="nav-link" href="/quotes">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Logout</a>
+                </li>
+            </ul>
+        </nav>
+        <br>
+        <h2>Posts by {{user.name}}</h2>
+        <p>Quotes Contributed: {{number_of_quotes}}</p>
+        {% for quote in user.QuotesCreated.all %}
+        <div class="card" style="width:75%">
+            <div class="card-body bg-light">
+                <p class="card-text"><strong>"{{quote.quoteMessage}}"</strong></p>
+                <p class="card-text small text-right"> - <strong>{{quote.quoteBy}}</strong></p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

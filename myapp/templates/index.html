@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Login and Registration</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <style>
+        h3{
+            margin-top: 20px;
+        }
+
+        input#name{
+            font-size: 12px;
+        }
+
+        input#username{
+            font-size: 12px;
+        }
+
+        input#password{
+            font-size: 12px;
+        }
+
+        input[type=text], select {
+          width: 100%;
+          padding: 10px 20px;
+          margin: 8px 0;
+          display: inline-block;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          box-sizing: border-box;
+        }
+
+        input[type=password]{
+          width: 100%;
+          padding: 10px 20px;
+          margin: 8px 0;
+          display: inline-block;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          box-sizing: border-box;
+        }
+        
+        input[type=submit] {
+          width: 100%;
+          background-color: #4CAF50;
+          color: white;
+          padding: 10px 20px;
+          margin: 8px 0;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+        }
+        
+        input[type=submit]:hover {
+          background-color: #45a049;
+        }
+
+        div.panel.panel-default{
+            margin-bottom: 100px;
+        }
+        
+        .panel-body {
+          border-radius: 5px;
+          background-color: #f2f2f2;
+          padding: 20px;
+        }
+        </style>
+
+    <title>Quotable Quotes</title>
+</head>
+<body>
+
+<div class="jumbotron text-center" style="margin-bottom:0">
+    <h1><strong>Q<sup>2</sup></strong> Quotable Quotes</h1>
+    <p>Be Inspired!</p>
+</div>
+
+<div>
+    {% if messages %}
+    <ul>
+        {% for message in messages %}
+        <li style="color: red;">{{message}}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6">
+            <div class='panel panel-default'>
+                <h3>Register</h3>
+                <div class="panel-body">
+                    <form action="/register" class="needs-validated" method="post" novalidate>
+                        {% csrf_token %}
+                        <div class="lane">
+                            <label for="name">Name:</label>
+                            <input type="text" placeholder="Your first and last name.."
+                                id="name" name="name" required>
+                            <div class="valid-feedback">Valid.</div>
+                            <div class="invalid-feedback">Please fill out this field..</div>
+                        </div>
+                        <div class="lane">
+                            <label for="alias">Alias:</label>
+                            <input type="text" id="alias" name="alias" required>
+                            <div class="valid-feedback">Valid.</div>
+                            <div class="invalid-feedback">Please fill out this field..</div>
+                        </div>
+                        <div class="lane">
+                            <label for="username">Username:</label>
+                            <input type="text" placeholder="Enter email address for username.."
+                                id="username" name="email" required>
+                            <div class="valid-feedback">Valid.</div>
+                            <div class="invalid-feedback">Please fill out this field.</div>
+                        </div>
+                        <div class="lane">
+                            <label for="password">Password:</label>
+                            <input type="password" id="password" name="password" placeholder="Password must be at least 8 characters.."
+                                required>
+                            <div class="valid-feedback">Valid.</div>
+                            <div class="invalid-feedback">Please fill out this field.</div>
+                        </div>
+                        <div class="lane">
+                            <label for="confirmPW">Confirm Password:</label>
+                            <input type="password" id="confirmPW"
+                                name="confirm_password" required>
+                            <div class="valid-feedback">Valid.</div>
+                            <div class="invalid-feedback">Please fill out this field.</div>
+                        </div>
+                        <div class="lane">
+                            <input type="submit" value="Register" id="">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class='panel panel-default'>
+                <h3>Login</h3>
+                <div class="panel-body">
+                    <form action="/login" method="post">
+                        {% csrf_token %}
+                        <div class="lane">
+                            <label for="loginUserName">Username:</label>
+                            <input type="text" id="loginUserName" name="email" required>
+                            <div class="valid-feedback">Valid.</div>
+                            <div class="invalid-feedback">Please fill out this field.</div>
+                        </div>
+                        <div class="lane">
+                            <label for="loginPW">Password:</label>
+                            <input type="password" id="loginPW" name="password"
+                                required>
+                            <div class="valid-feedback">Valid.</div>
+                            <div class="invalid-feedback">Please fill out this field.</div>
+                        </div>
+                        <div class="lane">
+                            <input type="submit" value="Login" id="">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    // Disable form submissions if there are invalid fields
+    (function () {
+        'use strict';
+        window.addEventListener('load', function () {
+            // Get the forms we want to add validation styles to
+            var forms = document.getElementsByClassName('needs-validation');
+            // Loop over them and prevent submission
+            var validation = Array.prototype.filter.call(forms, function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+</script>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+
+</div>
+</body>
+</html>
